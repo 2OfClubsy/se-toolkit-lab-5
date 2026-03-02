@@ -141,7 +141,7 @@ Title: `[Task] Observe System Component Interaction`
 
 #### 1.2.3. Start the services
 
-1. To start the services,
+1. To start the services in [background](../../../wiki/operating-system.md#background-process),
 
    [run in the `VS Code Terminal`](../../../wiki/vs-code.md#run-a-command-in-the-vs-code-terminal):
 
