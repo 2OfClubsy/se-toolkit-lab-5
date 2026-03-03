@@ -155,11 +155,11 @@ When you fork a repository on `GitHub`, you create a personal copy under your `G
 
 ### `<your-fork-url>`
 
+The [URL](./web-development.md#url) of your [fork](#fork).
+
 Assume the [URL](./web-development.md#url) of the [repo that you forked](#fork-a-repo) is `https://github.com/<repo-owner-github-username>/<repo-name>`.
 
 Then, your fork URL should look like `https://github.com/<your-github-username>/<repo-name>`.
-
-We'll refer to this URL as `<your-fork-url>`.
 
 See also:
 
