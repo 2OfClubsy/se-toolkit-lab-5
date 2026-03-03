@@ -20,6 +20,7 @@ The back-end contains intentional bugs that you will discover and fix by writing
   - [1.1. Follow the `Git workflow`](#11-follow-the-git-workflow)
   - [1.2. Create a `Lab Task` issue](#12-create-a-lab-task-issue)
   - [1.3. Part A: Run unit tests locally](#13-part-a-run-unit-tests-locally)
+    - [1.3.1. Create the environment file for unit tests](#131-create-the-environment-file-for-unit-tests)
     - [1.3.1. Run existing unit tests](#131-run-existing-unit-tests)
     - [1.3.2. Add a new unit test](#132-add-a-new-unit-test)
     - [1.3.3. Fix the bug](#133-fix-the-bug)
@@ -28,7 +29,7 @@ The back-end contains intentional bugs that you will discover and fix by writing
     - [1.3.5. Transfer the changes to your VM](#135-transfer-the-changes-to-your-vm)
     - [1.3.6. Deploy the fixed `app` service on your VM](#136-deploy-the-fixed-app-service-on-your-vm)
   - [1.4. Part B: Run end-to-end tests remotely](#14-part-b-run-end-to-end-tests-remotely)
-    - [1.4.1. Create the test environment file](#141-create-the-test-environment-file)
+    - [1.4.1. Create the environment file for E2E tests](#141-create-the-environment-file-for-e2e-tests)
     - [1.4.2. Run existing end-to-end tests](#142-run-existing-end-to-end-tests)
     - [1.4.3. Add two end-to-end tests](#143-add-two-end-to-end-tests)
     - [1.4.4. Fix the bug](#144-fix-the-bug)
@@ -66,6 +67,16 @@ Title: `[Task] Back-end Testing`
 
 > [!NOTE]
 > Unit tests do not require a running server. They test individual functions in isolation.
+
+#### 1.3.1. Create the environment file for unit tests
+
+1. To copy the content of [`.env.tests.unit.example`](../../../.env.tests.unit.example) to [`.env.tests.unit.secret`](../../../wiki/dotenv-tests-unit-secret.md#what-is-envtestsunitsecret),
+
+   [run in the `VS Code Terminal`](../../../wiki/vs-code.md#run-a-command-in-the-vs-code-terminal):
+
+   ```terminal
+   cp .env.tests.unit.example .env.tests.unit.secret
+   ```
 
 #### 1.3.1. Run existing unit tests
 
@@ -262,25 +273,23 @@ Title: `[Task] Back-end Testing`
 > [!NOTE]
 > End-to-end tests run on your local machine and send real [`HTTP` requests](../../../wiki/http.md#http-request) to the deployed version on the VM.
 
-#### 1.4.1. Create the test environment file
+#### 1.4.1. Create the environment file for E2E tests
 
-<!-- TODO dotenv-tests-secret.md -->
-
-1. To copy the content of [`.env.tests.example`](../../../.env.tests.example) to [`.env.tests.secret`](../../../wiki/dotenv-tests-secret.md#what-is-envtestssecret),
+1. To copy the content of [`.env.tests.e2e.example`](../../../.env.tests.e2e.example) to [`.env.tests.e2e.secret`](../../../wiki/dotenv-tests-e2e-secret.md#what-is-envtestse2esecret),
 
    [run in the `VS Code Terminal`](../../../wiki/vs-code.md#run-a-command-in-the-vs-code-terminal):
 
    ```terminal
-   cp .env.tests.example .env.tests.secret
+   cp .env.tests.e2e.example .env.tests.e2e.secret
    ```
 
-2. [Open `.env.tests.secret`](../../../wiki/vs-code.md#open-the-file).
-3. Set `API_BASE_URL` to `http://<your-vm-ip-address>:<caddy-port>`. Replace:
+2. [Open `.env.tests.e2e.secret`](../../../wiki/vs-code.md#open-the-file).
+3. Set [`API_BASE_URL`](../../../wiki/dotenv-tests-e2e-secret.md#api_base_url) to `http://<your-vm-ip-address>:<caddy-port>`. Replace:
 
    - [`<your-vm-ip-address>`](../../../wiki/vm.md#your-vm-ip-address)
    - [`<caddy-port>`](../../../wiki/caddy.md#caddy-port)
 
-4. Set `API_KEY` to the same value as [`API_KEY`](../../../wiki/dotenv-docker-secret.md#api_key) in [`.env.docker.secret`](../../../wiki/dotenv-docker-secret.md#what-is-envdockersecret) on the VM.
+4. Set [`API_KEY`](../../../wiki/dotenv-tests-e2e-secret.md#api_key) to the same value as [`API_KEY`](../../../wiki/dotenv-docker-secret.md#api_key) in [`.env.docker.secret`](../../../wiki/dotenv-docker-secret.md#what-is-envdockersecret) on the VM.
 
 #### 1.4.2. Run existing end-to-end tests
 
@@ -324,8 +333,6 @@ Title: `[Task] Back-end Testing`
        response = client.get("/interactions/")
        assert isinstance(response.json(), list)
    ```
-
-   <!-- TODO use pydantic? -->
 
    </details>
 
