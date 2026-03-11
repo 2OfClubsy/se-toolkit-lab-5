@@ -3,6 +3,7 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.exc import IntegrityError
 from sqlmodel.ext.asyncio.session import AsyncSession
+from datetime import datetime
 
 from app.database import get_session
 from app.db.interactions import create_interaction, read_interactions
@@ -40,6 +41,7 @@ async def post_interaction(
             learner_id=body.learner_id,
             item_id=body.item_id,
             kind=body.kind,
+	    timestamp=datetime.now(),
         )
     except IntegrityError as exc:
         await session.rollback()
