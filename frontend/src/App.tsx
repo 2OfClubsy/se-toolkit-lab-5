@@ -1,4 +1,5 @@
 import { useState, useEffect, useReducer, FormEvent } from 'react'
+import Dashboard from './Dashboard'
 import './App.css'
 
 const STORAGE_KEY = 'api_key'
@@ -21,6 +22,8 @@ type FetchAction =
   | { type: 'fetch_success'; data: Item[] }
   | { type: 'fetch_error'; message: string }
 
+type ViewMode = 'items' | 'dashboard';
+
 function fetchReducer(_state: FetchState, action: FetchAction): FetchState {
   switch (action.type) {
     case 'fetch_start':
@@ -38,6 +41,7 @@ function App() {
   )
   const [draft, setDraft] = useState('')
   const [fetchState, dispatch] = useReducer(fetchReducer, { status: 'idle' })
+  const [view, setView] = useState<ViewMode>('items');
 
   useEffect(() => {
     if (!token) return
@@ -94,12 +98,14 @@ function App() {
         <button className="btn-disconnect" onClick={handleDisconnect}>
           Disconnect
         </button>
+        <button className="btn" onClick={() => setView('items')}>Items</button>
+        <button className="btn" onClick={() => setView('dashboard')}>Dashboard</button>
       </header>
 
       {fetchState.status === 'loading' && <p>Loading...</p>}
       {fetchState.status === 'error' && <p>Error: {fetchState.message}</p>}
 
-      {fetchState.status === 'success' && (
+      {fetchState.status === 'success' && view === 'items' && (
         <table>
           <thead>
             <tr>
@@ -120,6 +126,10 @@ function App() {
             ))}
           </tbody>
         </table>
+      )}
+
+      {fetchState.status === 'success' && view === 'dashboard' && (
+        <Dashboard />
       )}
     </div>
   )
