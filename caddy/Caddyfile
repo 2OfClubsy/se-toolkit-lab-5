@@ -16,6 +16,9 @@
     handle /analytics* {
         reverse_proxy http://app:{$APP_CONTAINER_PORT}
     }
+    handle /labs* {
+        reverse_proxy http://app:{$APP_CONTAINER_PORT}
+    }
     handle /docs* {
         reverse_proxy http://app:{$APP_CONTAINER_PORT}
     }
